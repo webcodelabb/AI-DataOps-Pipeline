@@ -1,0 +1,46 @@
+{
+  "annotations": {"list": []},
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 0,
+  "panels": [
+    {
+      "type": "stat",
+      "title": "API Requests",
+      "id": 1,
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {"expr": "sum(increase(api_requests_total[5m]))", "legendFormat": "requests"}
+      ],
+      "gridPos": {"h": 4, "w": 8, "x": 0, "y": 0}
+    },
+    {
+      "type": "graph",
+      "title": "Request Latency (p95)",
+      "id": 2,
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {"expr": "histogram_quantile(0.95, sum(rate(api_request_latency_seconds_bucket[5m])) by (le))", "legendFormat": "p95"}
+      ],
+      "gridPos": {"h": 8, "w": 16, "x": 8, "y": 0}
+    },
+    {
+      "type": "graph",
+      "title": "Feedback Absolute Error",
+      "id": 3,
+      "datasource": {"type": "prometheus", "uid": "prometheus"},
+      "targets": [
+        {"expr": "rate(feedback_abs_error_sum[5m]) / rate(feedback_abs_error_count[5m])", "legendFormat": "mean_abs_error"}
+      ],
+      "gridPos": {"h": 8, "w": 24, "x": 0, "y": 8}
+    }
+  ],
+  "schemaVersion": 39,
+  "style": "dark",
+  "tags": ["api", "prometheus"],
+  "templating": {"list": []},
+  "time": {"from": "now-1h", "to": "now"},
+  "timezone": "",
+  "title": "API Metrics",
+  "version": 1
+}

@@ -1,0 +1,12 @@
+name: aidaops
+prefect-version: 2.20.9
+
+deployments:
+  - name: retrain-schedule
+    entrypoint: src/workflows/retrain_flow.py:retrain_flow
+    parameters: {}
+    work_queue_name: default
+    tags: [retrain]
+    schedule:
+      cron: "0 * * * *"
+      timezone: UTC
