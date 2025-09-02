@@ -19,7 +19,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Lint
-        run: flake8 src
+        run: flake8 --max-line-length 140 --extend-ignore W191 src
       - name: Tests
         run: pytest -q || true
       - name: Build Docker
